@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> magicalObjectList;
 
     void Start() {
+        DontDestroyOnLoad(this.gameObject);
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         magicalObjectList.AddRange(GameObject.FindGameObjectsWithTag("MagicalObject"));
     }
@@ -21,4 +23,7 @@ public class GameManager : MonoBehaviour {
             }
         }
     }
-}
+
+    void OnSceneLoaded(Scene scence, LoadSceneMode mod) {
+
+    }

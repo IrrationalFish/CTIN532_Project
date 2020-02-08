@@ -6,6 +6,9 @@ public class Player : MonoBehaviour {
 
     public Camera eye;
 
+    private void Start() {
+        DontDestroyOnLoad(this.gameObject);
+    }
     public bool IsInView(Vector3 worldPos) {
         Transform camTransform = eye.transform;
         Vector2 viewPos = eye.WorldToViewportPoint(worldPos);
