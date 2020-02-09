@@ -9,14 +9,15 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> magicalObjectList;
 
     void Start() {
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
+        //SceneManager.sceneLoaded += OnSceneLoaded;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         magicalObjectList.AddRange(GameObject.FindGameObjectsWithTag("MagicalObject"));
     }
 
     void Update() {
         foreach(GameObject obj in magicalObjectList) {
-            if(player.IsInView(obj.transform.position)){
+            if(player.IsInView(obj.transform.position)) {
                 obj.GetComponent<MagicalObject>().TurnOn();
             } else {
                 obj.GetComponent<MagicalObject>().TurnOff();
@@ -24,6 +25,9 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    void OnSceneLoaded(Scene scence, LoadSceneMode mod) {
-
-    }
+    /*void OnSceneLoaded(Scene scence, LoadSceneMode mod) {
+        magicalObjectList = new List<GameObject>();
+        magicalObjectList.AddRange(GameObject.FindGameObjectsWithTag("MagicalObject"));
+        print("Load scene " + SceneManager.GetActiveScene().name);
+    }*/
+}
