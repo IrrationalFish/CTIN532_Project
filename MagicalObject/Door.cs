@@ -13,11 +13,11 @@ public class Door : Mechanism {
     private Transform destination;
 
     private void Start() {
-        destination = onPos;
+
     }
 
     private void Update() {
-        if(!doorBoard.transform.position.Equals(destination.position)) {
+        if(destination!=null && !doorBoard.transform.position.Equals(destination.position)) {
             doorBoard.transform.position = Vector3.MoveTowards(doorBoard.transform.position, destination.position, maxSpeed);
         }
     }

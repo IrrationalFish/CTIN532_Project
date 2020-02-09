@@ -18,9 +18,9 @@ public class GameManager : MonoBehaviour {
     void Update() {
         foreach(GameObject obj in magicalObjectList) {
             if(player.IsInView(obj.transform.position)) {
-                obj.GetComponent<MagicalObject>().TurnOn();
+                obj.GetComponent<MagicalObject>().InsideView();
             } else {
-                obj.GetComponent<MagicalObject>().TurnOff();
+                obj.GetComponent<MagicalObject>().OutsideView();
             }
         }
     }
