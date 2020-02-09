@@ -26,4 +26,11 @@ public class MagicalObject : MonoBehaviour {
         }
     }
 
+    private void OnDrawGizmos() {
+        foreach(Mechanism m in linkedMechanism) {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, m.transform.position);
+        }
+    }
+
 }
