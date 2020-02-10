@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : Mechanism {
+public class FloatingBoard : Mechanism {
 
-    public GameObject doorBoard;
+    public GameObject boardModel;
     public float maxSpeed;
     public bool on;
     public Transform onPos;
@@ -21,8 +21,8 @@ public class Door : Mechanism {
     }
 
     private void Update() {
-        if(destination!=null && !doorBoard.transform.position.Equals(destination.position)) {
-            doorBoard.transform.position = Vector3.MoveTowards(doorBoard.transform.position, destination.position, maxSpeed);
+        if(destination != null && !boardModel.transform.position.Equals(destination.position)) {
+            boardModel.transform.position = Vector3.MoveTowards(boardModel.transform.position, destination.position, maxSpeed);
         }
     }
     public override void TurnOn() {
