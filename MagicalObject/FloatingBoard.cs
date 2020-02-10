@@ -6,9 +6,11 @@ public class FloatingBoard : Mechanism {
 
     public GameObject boardModel;
     public float maxSpeed;
-    public bool on;
+    public bool on = false;
     public Transform onPos;
     public Transform offPos;
+    public bool transportingPlayer;
+
 
     private Transform destination;
 
@@ -18,6 +20,14 @@ public class FloatingBoard : Mechanism {
         } else {
             destination = offPos;
         }
+    }
+
+    private void LateUpdate() {
+        /*if(transportingPlayer) {
+            print("player: " + GameManager.player.GetComponent<Rigidbody>().velocity);
+            print("board: " + boardModel.GetComponent<Rigidbody>().velocity);
+            GameManager.player.GetComponent<Rigidbody>().velocity += boardModel.GetComponent<Rigidbody>().velocity;
+        }*/
     }
 
     private void Update() {
