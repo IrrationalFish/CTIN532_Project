@@ -228,7 +228,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1910053787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +241,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8dea50d1aa1bf34b91961a7089d06d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arriveElevator: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  reswapnPoint: {fileID: 0}
   magicalObjectList: []
 --- !u!4 &1910053788
 Transform:

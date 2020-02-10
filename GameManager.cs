@@ -6,12 +6,20 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     public static Player player;
+    public GameObject arriveElevator;
+    public GameObject playerPrefab;
+    public Transform reswapnPoint;
     public List<GameObject> magicalObjectList;
 
     void Start() {
-        //DontDestroyOnLoad(this.gameObject);
-        //SceneManager.sceneLoaded += OnSceneLoaded;
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if(playerObject == null) {
+            RespawnPlayer();
+        } else {
+            player = playerObject.GetComponent<Player>();
+        }
+        player.gameObject.transform.position = reswapnPoint.position;
+        player.gameObject.transform.rotation = reswapnPoint.rotation;
         magicalObjectList.AddRange(GameObject.FindGameObjectsWithTag("MagicalObject"));
     }
 
@@ -25,9 +33,11 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    /*void OnSceneLoaded(Scene scence, LoadSceneMode mod) {
-        magicalObjectList = new List<GameObject>();
-        magicalObjectList.AddRange(GameObject.FindGameObjectsWithTag("MagicalObject"));
-        print("Load scene " + SceneManager.GetActiveScene().name);
-    }*/
+    public void RespawnPlayer() {
+        if(player != null) {
+            Destroy(player.gameObject);
+        }
+        player = Instantiate(playerPrefab, reswapnPoint.transform.position, reswapnPoint.transform.rotation).GetComponent<Player>();
+    }
+
 }
