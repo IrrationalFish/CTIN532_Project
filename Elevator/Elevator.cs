@@ -20,7 +20,7 @@ public class Elevator : MonoBehaviour {
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        if(scene.buildIndex == 0) {     //load the loading scene
+        if(scene.buildIndex == 1) {     //load the loading scene
             print("Enter loading scene");
             this.type = ElevatorType.Arrive;
             StartCoroutine(LoadAsyneScene());
@@ -51,7 +51,7 @@ public class Elevator : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.CompareTag("Player")) {
             this.gameObject.GetComponent<BoxCollider>().enabled = false;
-            SceneManager.LoadScene(0);  //to loading scene
+            SceneManager.LoadScene(1);  //to loading scene
             print("Enter leave elevator");
         }
     }
