@@ -16,6 +16,7 @@ public class Movement : MonoBehaviour {
 
     void Update() {
         UpdateMovement();
+        CheckFloatingBoard();
     }
 
     void UpdateMovement() {
@@ -39,6 +40,19 @@ public class Movement : MonoBehaviour {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public void CheckFloatingBoard() {
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, new Vector3(0, -1, 0), out hit, 1.1f)) {
+            if(hit.collider.gameObject.CompareTag("FloatingBoard")) {
+                this.gameObject.transform.parent = hit.collider.transform;
+                print("player on floating board");
+            } else {
+                this.gameObject.transform.parent = null;
+                print("player leaves floating board");
+            }
         }
     }
 }

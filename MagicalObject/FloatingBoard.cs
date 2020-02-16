@@ -22,14 +22,6 @@ public class FloatingBoard : Mechanism {
         }
     }
 
-    private void LateUpdate() {
-        /*if(transportingPlayer) {
-            print("player: " + GameManager.player.GetComponent<Rigidbody>().velocity);
-            print("board: " + boardModel.GetComponent<Rigidbody>().velocity);
-            GameManager.player.GetComponent<Rigidbody>().velocity += boardModel.GetComponent<Rigidbody>().velocity;
-        }*/
-    }
-
     private void Update() {
         if(destination != null && !boardModel.transform.position.Equals(destination.position)) {
             boardModel.transform.position = Vector3.MoveTowards(boardModel.transform.position, destination.position, maxSpeed);
