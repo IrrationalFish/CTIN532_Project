@@ -36,9 +36,11 @@ public class Movement : MonoBehaviour {
     }
 
     bool OnGround() {
+        Debug.DrawRay(transform.position, new Vector3(0, -1, 0), Color.red, 1.1f);
         if(Physics.Raycast(transform.position, new Vector3(0, -1, 0), 1.1f)){
             return true;
         } else {
+            print("notong");
             return false;
         }
     }
@@ -49,10 +51,10 @@ public class Movement : MonoBehaviour {
             if(hit.collider.gameObject.CompareTag("FloatingBoard")) {
                 this.gameObject.transform.parent = hit.collider.transform;
                 print("player on floating board");
-            } else {
-                this.gameObject.transform.parent = null;
-                print("player leaves floating board");
             }
+        } else {
+            this.gameObject.transform.parent = null;
+            print("player leaves floating board");
         }
     }
 }

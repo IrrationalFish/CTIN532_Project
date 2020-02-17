@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour {
         } else {
             player = playerObject.GetComponent<Player>();
         }
-        /*player.gameObject.transform.position = reswapnPoint.position;
-        player.gameObject.transform.rotation = reswapnPoint.rotation;*/
+        player.gameObject.transform.position = reswapnPoint.position;
+        player.gameObject.transform.rotation = reswapnPoint.rotation;
         magicalObjectList.AddRange(GameObject.FindGameObjectsWithTag("MagicalObject"));
     }
 
