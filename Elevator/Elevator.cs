@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 public class Elevator : MonoBehaviour {
 
     public enum ElevatorType {
+        Placeholder,
         Leave,
+        Loading,
         Arrive
     }
 
@@ -15,18 +17,27 @@ public class Elevator : MonoBehaviour {
     public int destSceneIndex;
 
     private void Start() {
-        DontDestroyOnLoad(this.gameObject);
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        if(type == ElevatorType.Placeholder) {
+            Destroy(this.gameObject);
+        } else {
+            DontDestroyOnLoad(this.gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         if(scene.buildIndex == 1) {     //load the loading scene
-            print("Enter loading scene");
-            this.type = ElevatorType.Arrive;
-            StartCoroutine(LoadAsyneScene());
-            
+            if(type == ElevatorType.Leave) {
+                print("Enter loading scene");
+                type = ElevatorType.Loading;
+                StartCoroutine(LoadAsyneScene());
+            } else if(type == ElevatorType.Arrive) {
+                Destroy(this.gameObject);
+            }
         } else {
-
+            if(type == ElevatorType.Loading) {
+                type = ElevatorType.Arrive;
+            }
         }
     }
 
@@ -49,10 +60,22 @@ public class Elevator : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(other.gameObject.CompareTag("Player")) {
-            this.gameObject.GetComponent<BoxCollider>().enabled = false;
-            SceneManager.LoadScene(1);  //to loading scene
-            print("Enter leave elevator");
+        if(type == ElevatorType.Leave) {
+            GameObject player;
+            if(other.gameObject.CompareTag("Player")) {
+                player = other.gameObject;
+                player.transform.parent = this.gameObject.transform;
+                print("player attaches to elevator");
+                this.gameObject.GetComponent<BoxCollider>().enabled = false;
+
+                SceneManager.LoadScene(1);  //to loading scene
+                print("Enter leave elevator");
+            }
         }
     }
+
+    /*IEnumerator LoadLoadingScene() {
+        SceneManager.LoadScene(1);  //to loading scene
+        print("Enter leave elevator");
+    }*/
 }

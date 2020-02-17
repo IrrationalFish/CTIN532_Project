@@ -16,7 +16,7 @@ public class Movement : MonoBehaviour {
 
     void Update() {
         UpdateMovement();
-        CheckFloatingBoard();
+        CheckParent();
     }
 
     void UpdateMovement() {
@@ -40,21 +40,26 @@ public class Movement : MonoBehaviour {
         if(Physics.Raycast(transform.position, new Vector3(0, -1, 0), 1.1f)){
             return true;
         } else {
-            print("notong");
             return false;
         }
     }
 
-    public void CheckFloatingBoard() {
+    public void CheckParent() {
         RaycastHit hit;
         if(Physics.Raycast(transform.position, new Vector3(0, -1, 0), out hit, 1.1f)) {
             if(hit.collider.gameObject.CompareTag("FloatingBoard")) {
                 this.gameObject.transform.parent = hit.collider.transform;
                 print("player on floating board");
             }
-        } else {
-            this.gameObject.transform.parent = null;
-            print("player leaves floating board");
+        } else {    //not stand on sth
+            GameObject parent = this.gameObject.transform.parent.gameObject;
+            if(parent == null) {
+                return;
+            }
+            if(!parent.CompareTag("Elevator")) {
+                this.gameObject.transform.parent = null;
+                print("player leaves floating board");
+            }
         }
     }
 }

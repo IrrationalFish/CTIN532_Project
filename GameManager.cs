@@ -12,14 +12,16 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> magicalObjectList;
 
     void Start() {
+        PlaceElevator();
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if(playerObject == null) {
             RespawnPlayer();
         } else {
             player = playerObject.GetComponent<Player>();
         }
-        player.gameObject.transform.position = reswapnPoint.position;
-        player.gameObject.transform.rotation = reswapnPoint.rotation;
+        player.transform.parent = null;
+        /*player.gameObject.transform.position = reswapnPoint.position;
+        player.gameObject.transform.rotation = reswapnPoint.rotation;*/
         magicalObjectList.AddRange(GameObject.FindGameObjectsWithTag("MagicalObject"));
     }
 
@@ -38,6 +40,27 @@ public class GameManager : MonoBehaviour {
             Destroy(player.gameObject);
         }
         player = Instantiate(playerPrefab, reswapnPoint.transform.position, reswapnPoint.transform.rotation).GetComponent<Player>();
+    }
+
+    public void PlaceElevator() {   //delete placeholder elevator and place arrive elevator
+        Transform placeholderPos = null;
+        GameObject placeholderElevator = null;
+        GameObject arriveElevator = null;
+        GameObject[] Elevators = GameObject.FindGameObjectsWithTag("Elevator");
+        foreach(GameObject e in Elevators) {
+            Elevator.ElevatorType type = e.GetComponent<Elevator>().type;
+            if(type == Elevator.ElevatorType.Placeholder) {
+                placeholderPos = e.transform;
+                placeholderElevator = e;
+            }else if(type == Elevator.ElevatorType.Arrive) {
+                arriveElevator = e;
+            }
+        }
+        if(placeholderElevator != null) {
+            Destroy(placeholderElevator);
+            arriveElevator.transform.position = placeholderPos.position;
+            arriveElevator.transform.rotation = placeholderPos.rotation;
+        }
     }
 
 }
