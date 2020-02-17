@@ -14,7 +14,7 @@ public class Elevator : MonoBehaviour {
     }
 
     public ElevatorType type;
-    public int destSceneIndex;
+    public string destScene;
     public float cacheTime = 2f;
 
     public Door door;
@@ -36,6 +36,7 @@ public class Elevator : MonoBehaviour {
                 type = ElevatorType.Loading;
                 StartCoroutine(LoadAsyneScene());
             } else if(type == ElevatorType.Arrive) {
+                print("Destroy " + this.gameObject.name);
                 Destroy(this.gameObject);
             }
         } else {
@@ -49,7 +50,7 @@ public class Elevator : MonoBehaviour {
         yield return null;
         //float cacheTime = 2f;
         float timeAfterDone = 0f;
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(destSceneIndex);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(destScene);
         asyncLoad.allowSceneActivation = false;     
         while(!asyncLoad.isDone) {
             if(asyncLoad.progress >= 0.9f) {    // Check if the load has finished
@@ -79,18 +80,12 @@ public class Elevator : MonoBehaviour {
         }
     }
 
-    private void OnTriggerExit(Collider other) {
-        if(type == ElevatorType.Leave) {
-            GameObject player;
-            if(other.gameObject.CompareTag("Player")) {
-                
-                
-            }
-        }
+    public void LoadLoadingScene() {
+        SceneManager.LoadScene("LoadingScene");  //to loading scene
+        print("Enter leave elevator");
     }
 
-    public void LoadLoadingScene() {
-        SceneManager.LoadScene(1);  //to loading scene
-        print("Enter leave elevator");
+    private void OnDestroy() {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
