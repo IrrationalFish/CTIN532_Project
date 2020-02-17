@@ -15,6 +15,9 @@ public class Elevator : MonoBehaviour {
 
     public ElevatorType type;
     public int destSceneIndex;
+    public float cacheTime = 2f;
+
+    public Door door;
 
     private void Start() {
         if(type == ElevatorType.Placeholder) {
@@ -23,6 +26,7 @@ public class Elevator : MonoBehaviour {
             DontDestroyOnLoad(this.gameObject);
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
+        door = this.gameObject.GetComponentInChildren<Door>();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
@@ -43,7 +47,7 @@ public class Elevator : MonoBehaviour {
 
     IEnumerator LoadAsyneScene() {
         yield return null;
-        float cacheTime = 2f;
+        //float cacheTime = 2f;
         float timeAfterDone = 0f;
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(destSceneIndex);
         asyncLoad.allowSceneActivation = false;     
@@ -68,14 +72,25 @@ public class Elevator : MonoBehaviour {
                 print("player attaches to elevator");
                 this.gameObject.GetComponent<BoxCollider>().enabled = false;
 
-                SceneManager.LoadScene(1);  //to loading scene
-                print("Enter leave elevator");
+                door.TurnOff();
+
+                Invoke("LoadLoadingScene", 1.5f);
             }
         }
     }
 
-    /*IEnumerator LoadLoadingScene() {
+    private void OnTriggerExit(Collider other) {
+        if(type == ElevatorType.Leave) {
+            GameObject player;
+            if(other.gameObject.CompareTag("Player")) {
+                
+                
+            }
+        }
+    }
+
+    public void LoadLoadingScene() {
         SceneManager.LoadScene(1);  //to loading scene
         print("Enter leave elevator");
-    }*/
+    }
 }

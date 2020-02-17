@@ -52,7 +52,7 @@ public class Movement : MonoBehaviour {
                 print("player on floating board");
             }
         } else {    //not stand on sth
-            GameObject parent = this.gameObject.transform.parent.gameObject;
+            Transform parent = this.gameObject.transform.parent;
             if(parent == null) {
                 return;
             }

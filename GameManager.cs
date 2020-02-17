@@ -61,6 +61,8 @@ public class GameManager : MonoBehaviour {
             arriveElevator.transform.position = placeholderPos.position;
             arriveElevator.transform.rotation = placeholderPos.rotation;
         }
+
+        arriveElevator.GetComponent<Elevator>().door.TurnOn();
     }
 
 }

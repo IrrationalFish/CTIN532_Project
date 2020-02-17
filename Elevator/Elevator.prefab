@@ -79,7 +79,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
-  m_Center: {x: -1, y: 0.55, z: 0}
+  m_Center: {x: -1, y: 0.55, z: 0.39}
 --- !u!114 &7582197265187478242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +94,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   destSceneIndex: 3
+  cacheTime: 2
+  door: {fileID: 0}
 --- !u!1 &7582197265351029200
 GameObject:
   m_ObjectHideFlags: 0
@@ -4884,9 +4886,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorBoard: {fileID: 7582197265351029200}
   maxSpeed: 0.1
-  on: 0
   onPos: {fileID: 7582197265774238980}
   offPos: {fileID: 7582197265047423965}
+  on: 0
 --- !u!1001 &7582197266023433128
 PrefabInstance:
   m_ObjectHideFlags: 0

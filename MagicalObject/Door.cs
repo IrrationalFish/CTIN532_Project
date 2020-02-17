@@ -6,9 +6,9 @@ public class Door : Mechanism {
 
     public GameObject doorBoard;
     public float maxSpeed;
-    public bool on;
     public Transform onPos;
     public Transform offPos;
+    [SerializeField] private bool on;
 
     private Transform destination;
 
