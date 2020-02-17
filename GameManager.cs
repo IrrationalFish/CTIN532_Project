@@ -56,13 +56,27 @@ public class GameManager : MonoBehaviour {
                 arriveElevator = e;
             }
         }
-        if(placeholderElevator != null) {
+        if(arriveElevator == null && placeholderElevator != null) {
+            //used for convience, in developping scene, only placeholder and start directly.
+            placeholderElevator.GetComponent<Elevator>().door.TurnOn();
+        } else if(arriveElevator != null) {
+            arriveElevator.GetComponent<Elevator>().door.TurnOn();
+            if(placeholderElevator != null) {
+                Destroy(placeholderElevator);
+                arriveElevator.transform.position = placeholderPos.position;
+                arriveElevator.transform.rotation = placeholderPos.rotation;
+            }
+        }
+        /*if(placeholderElevator != null) {
             Destroy(placeholderElevator);
             arriveElevator.transform.position = placeholderPos.position;
             arriveElevator.transform.rotation = placeholderPos.rotation;
         }
 
-        arriveElevator.GetComponent<Elevator>().door.TurnOn();
+        if(arriveElevator != null) {
+            arriveElevator.GetComponent<Elevator>().door.TurnOn();
+
+        }*/
     }
 
 }

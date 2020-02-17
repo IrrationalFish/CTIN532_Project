@@ -21,7 +21,7 @@ public class Elevator : MonoBehaviour {
 
     private void Start() {
         if(type == ElevatorType.Placeholder) {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         } else {
             DontDestroyOnLoad(this.gameObject);
             SceneManager.sceneLoaded += OnSceneLoaded;
