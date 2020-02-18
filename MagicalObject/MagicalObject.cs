@@ -6,23 +6,38 @@ public class MagicalObject : MonoBehaviour {
 
     public bool Triggered;
     public List<Mechanism> linkedMechanism = new List<Mechanism>();
+
+    public ParticleSystem turnOnParticle;
+    public ParticleSystem pointerParticle;
+
+    public GameObject cube;
+    public Vector3 rotateSpeed;
+
+    private void Update() {
+        cube.transform.Rotate(rotateSpeed * Time.deltaTime);
+    }
+
     public void InsideView() {
         if(Triggered == false) {
             Triggered = true;
+            Invoke("PlayTurnOnParticle", 0.5f);
             print(this.gameObject.name + " turns on");
             foreach(Mechanism m in linkedMechanism) {
                 m.TurnOn();
             }
+            pointerParticle.Play();
         }
     }
 
     public void OutsideView() {
         if(Triggered == true) {
             Triggered = false;
+            turnOnParticle.Stop();
             print(this.gameObject.name + " turns off");
             foreach(Mechanism m in linkedMechanism) {
                 m.TurnOff();
             }
+            pointerParticle.Stop();
         }
     }
 
@@ -31,6 +46,10 @@ public class MagicalObject : MonoBehaviour {
             Gizmos.color = Color.magenta;
             Gizmos.DrawLine(transform.position, m.transform.position);
         }
+    }
+
+    private void PlayTurnOnParticle() {
+        turnOnParticle.Play();
     }
 
 }
