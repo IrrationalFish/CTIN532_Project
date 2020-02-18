@@ -32,7 +32,7 @@ public class MagicalObject : MonoBehaviour {
     public void OutsideView() {
         if(Triggered == true) {
             Triggered = false;
-            turnOnParticle.Stop();
+            Invoke("StopTurnOnParticle", 0.5f);
             print(this.gameObject.name + " turns off");
             foreach(Mechanism m in linkedMechanism) {
                 m.TurnOff();
@@ -50,6 +50,10 @@ public class MagicalObject : MonoBehaviour {
 
     private void PlayTurnOnParticle() {
         turnOnParticle.Play();
+    }
+
+    private void StopTurnOnParticle() {
+        turnOnParticle.Stop();
     }
 
 }
