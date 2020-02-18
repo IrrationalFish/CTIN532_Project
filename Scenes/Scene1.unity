@@ -2324,7 +2324,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-165088
+  m_Name: pb_Mesh117220
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5008,7 +5008,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-100780
+  m_Name: pb_Mesh-331730
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11053,7 +11053,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-100788
+  m_Name: pb_Mesh-331738
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11786,7 +11786,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh58116
+  m_Name: pb_Mesh117086
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -15011,26 +15011,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1491304310}
     m_Modifications:
-    - target: {fileID: 657740382153948964, guid: a53a2d909dbb18c48ba6d4bea0b38821,
-        type: 3}
-      propertyPath: m_Name
-      value: LaserTarget
-      objectReference: {fileID: 0}
-    - target: {fileID: 2911734939961427988, guid: a53a2d909dbb18c48ba6d4bea0b38821,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 12.71
-      objectReference: {fileID: 0}
-    - target: {fileID: 2911734939961427988, guid: a53a2d909dbb18c48ba6d4bea0b38821,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.71
-      objectReference: {fileID: 0}
-    - target: {fileID: 2911734939961427988, guid: a53a2d909dbb18c48ba6d4bea0b38821,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.29
-      objectReference: {fileID: 0}
     - target: {fileID: 7507903663824951482, guid: a53a2d909dbb18c48ba6d4bea0b38821,
         type: 3}
       propertyPath: playOnAwake
