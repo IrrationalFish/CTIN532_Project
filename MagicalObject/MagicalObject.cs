@@ -9,12 +9,18 @@ public class MagicalObject : MonoBehaviour {
 
     public ParticleSystem turnOnParticle;
     public ParticleSystem pointerParticle;
+    public Transform pointerTarget;
+    public particleAttractorMove pointerScript;
 
-    public GameObject cube;
+    public GameObject core;
     public Vector3 rotateSpeed;
 
+    private void Start() {
+        pointerScript.target = pointerTarget;
+    }
+
     private void Update() {
-        cube.transform.Rotate(rotateSpeed * Time.deltaTime);
+        core.transform.Rotate(rotateSpeed * Time.deltaTime);
     }
 
     public void InsideView() {

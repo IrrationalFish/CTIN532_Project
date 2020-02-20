@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3228882458339230239}
   - component: {fileID: 3228882458339230233}
   m_Layer: 0
-  m_Name: MagicalObject1-1
+  m_Name: MagicalObject
   m_TagString: MagicalObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,7 +99,8 @@ MonoBehaviour:
   linkedMechanism: []
   turnOnParticle: {fileID: 3226061585378130024}
   pointerParticle: {fileID: 2386157976394695024}
-  cube: {fileID: 4823762977656216580}
+  pointerScript: {fileID: 2471302016716126980}
+  core: {fileID: 4823762977656216580}
   rotateSpeed: {x: 0, y: 45, z: 0}
 --- !u!1 &9190774678045613975
 GameObject:
@@ -747,15 +748,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a53a2d909dbb18c48ba6d4bea0b38821, type: 3}
---- !u!198 &2386157976394695024 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 7508060386835706536, guid: a53a2d909dbb18c48ba6d4bea0b38821,
-    type: 3}
-  m_PrefabInstance: {fileID: 5272777477624607704}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2581465606444226726 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7710055253416192894, guid: a53a2d909dbb18c48ba6d4bea0b38821,
+    type: 3}
+  m_PrefabInstance: {fileID: 5272777477624607704}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2471302016716126980 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7739294375006210268, guid: a53a2d909dbb18c48ba6d4bea0b38821,
+    type: 3}
+  m_PrefabInstance: {fileID: 5272777477624607704}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25ffccf5c471001449a2d02f4d594f57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!198 &2386157976394695024 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7508060386835706536, guid: a53a2d909dbb18c48ba6d4bea0b38821,
     type: 3}
   m_PrefabInstance: {fileID: 5272777477624607704}
   m_PrefabAsset: {fileID: 0}
