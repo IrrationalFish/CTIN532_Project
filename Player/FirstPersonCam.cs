@@ -20,6 +20,7 @@ public class FirstPersonCam : MonoBehaviour {
         _rotationX = Mathf.Clamp(_rotationX, minVert, maxVert);
 
         transform.localEulerAngles = new Vector3(0, _rotationY, 0);
+        //transform.eulerAngles = new Vector3(0, _rotationY, 0);
         eye.transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
     }
 }

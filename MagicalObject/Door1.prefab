@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3e80b5a272a5942ae607128812728d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  laserTarget: {fileID: 1150822487790273129}
   doorBoard: {fileID: 7412702349944554786}
   maxSpeed: 0.1
   onPos: {fileID: 7412702350367844854}

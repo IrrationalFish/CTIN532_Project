@@ -9,14 +9,16 @@ public class MagicalObject : MonoBehaviour {
 
     public ParticleSystem turnOnParticle;
     public ParticleSystem pointerParticle;
-    public Transform pointerTarget;
+    //public Transform pointerTarget;
     public particleAttractorMove pointerScript;
 
     public GameObject core;
     public Vector3 rotateSpeed;
 
     private void Start() {
-        pointerScript.target = pointerTarget;
+        if(linkedMechanism.Count != 0) {
+            pointerScript.target = linkedMechanism[0].laserTarget;
+        }
     }
 
     private void Update() {
@@ -27,7 +29,7 @@ public class MagicalObject : MonoBehaviour {
         if(Triggered == false) {
             Triggered = true;
             Invoke("PlayTurnOnParticle", 0.5f);
-            print(this.gameObject.name + " turns on");
+            //print(this.gameObject.name + " turns on");
             foreach(Mechanism m in linkedMechanism) {
                 m.TurnOn();
             }
@@ -39,7 +41,7 @@ public class MagicalObject : MonoBehaviour {
         if(Triggered == true) {
             Triggered = false;
             Invoke("StopTurnOnParticle", 0.5f);
-            print(this.gameObject.name + " turns off");
+            //print(this.gameObject.name + " turns off");
             foreach(Mechanism m in linkedMechanism) {
                 m.TurnOff();
             }

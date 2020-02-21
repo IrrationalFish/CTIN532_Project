@@ -56,27 +56,21 @@ public class GameManager : MonoBehaviour {
                 arriveElevator = e;
             }
         }
+
         if(arriveElevator == null && placeholderElevator != null) {
+            print("no arrive lift and there is placeholder in the scene, open its door");
             //used for convience, in developping scene, only placeholder and start directly.
             placeholderElevator.GetComponent<Elevator>().door.TurnOn();
         } else if(arriveElevator != null) {
+            print("get arrive lift, open its door");
             arriveElevator.GetComponent<Elevator>().door.TurnOn();
             if(placeholderElevator != null) {
+                print("get placeholder, destory it");
                 Destroy(placeholderElevator);
                 arriveElevator.transform.position = placeholderPos.position;
                 arriveElevator.transform.rotation = placeholderPos.rotation;
             }
         }
-        /*if(placeholderElevator != null) {
-            Destroy(placeholderElevator);
-            arriveElevator.transform.position = placeholderPos.position;
-            arriveElevator.transform.rotation = placeholderPos.rotation;
-        }
-
-        if(arriveElevator != null) {
-            arriveElevator.GetComponent<Elevator>().door.TurnOn();
-
-        }*/
     }
 
 }

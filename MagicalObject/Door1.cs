@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : Mechanism {
+public class Door1 : Mechanism {
 
     public GameObject doorBoard;
     public float maxSpeed;

@@ -17,7 +17,7 @@ public class Elevator : MonoBehaviour {
     public string destScene;
     public float cacheTime = 2f;
 
-    public Door door;
+    public Mechanism door;
 
     private void Start() {
         if(type == ElevatorType.Placeholder) {
@@ -26,11 +26,11 @@ public class Elevator : MonoBehaviour {
             DontDestroyOnLoad(this.gameObject);
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
-        door = this.gameObject.GetComponentInChildren<Door>();
+        door = this.gameObject.GetComponentInChildren<Mechanism>();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-        if(scene.buildIndex == 1) {     //load the loading scene
+        if(scene.name == "LoadingScene") {     //load the loading scene
             if(type == ElevatorType.Leave) {
                 print("Enter loading scene");
                 type = ElevatorType.Loading;
