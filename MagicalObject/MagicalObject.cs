@@ -8,14 +8,15 @@ public class MagicalObject : MonoBehaviour {
     public List<Mechanism> linkedMechanism = new List<Mechanism>();
 
     public ParticleSystem turnOnParticle;
+    public AudioSource turnOnSound;
     public ParticleSystem pointerParticle;
-    //public Transform pointerTarget;
     public particleAttractorMove pointerScript;
 
     public GameObject core;
     public Vector3 rotateSpeed;
 
     private void Start() {
+        turnOnSound = GetComponent<AudioSource>();
         if(linkedMechanism.Count != 0) {
             pointerScript.target = linkedMechanism[0].laserTarget;
         }
@@ -57,10 +58,13 @@ public class MagicalObject : MonoBehaviour {
     }
 
     private void PlayTurnOnParticle() {
+        turnOnSound.loop = true;
+        turnOnSound.Play();
         turnOnParticle.Play();
     }
 
     private void StopTurnOnParticle() {
+        turnOnSound.loop = false;
         turnOnParticle.Stop();
     }
 

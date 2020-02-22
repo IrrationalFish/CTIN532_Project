@@ -14,13 +14,14 @@ public class FirstPersonCam : MonoBehaviour {
 
     void Update() {
         float _rotationY;
-        _rotationY = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * horSensitivity;
+        //_rotationY = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * horSensitivity;
+        _rotationY = transform.eulerAngles.y + Input.GetAxis("Mouse X") * horSensitivity;
 
         _rotationX = _rotationX - Input.GetAxis("Mouse Y") * verSensitivity;
         _rotationX = Mathf.Clamp(_rotationX, minVert, maxVert);
 
-        transform.localEulerAngles = new Vector3(0, _rotationY, 0);
-        //transform.eulerAngles = new Vector3(0, _rotationY, 0);
+        //transform.localEulerAngles = new Vector3(0, _rotationY, 0);
+        transform.eulerAngles = new Vector3(0, _rotationY, 0);
         eye.transform.localEulerAngles = new Vector3(_rotationX, 0, 0);
     }
 }

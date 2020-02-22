@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -63,7 +64,8 @@ public class GameManager : MonoBehaviour {
             placeholderElevator.GetComponent<Elevator>().door.TurnOn();
         } else if(arriveElevator != null) {
             print("get arrive lift, open its door");
-            arriveElevator.GetComponent<Elevator>().door.TurnOn();
+            //arriveElevator.GetComponent<Elevator>().door.TurnOn();
+            arriveElevator.GetComponent<Elevator>().ArriveLevel();
             if(placeholderElevator != null) {
                 print("get placeholder, destory it");
                 Destroy(placeholderElevator);
@@ -71,6 +73,11 @@ public class GameManager : MonoBehaviour {
                 arriveElevator.transform.rotation = placeholderPos.rotation;
             }
         }
+    }
+
+    public static IEnumerator DelayToInvoke(Action action, float delaySeconds) {
+        yield return new WaitForSeconds(delaySeconds);
+        action();
     }
 
 }

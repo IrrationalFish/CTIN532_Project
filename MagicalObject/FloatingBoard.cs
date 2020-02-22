@@ -49,12 +49,4 @@ public class FloatingBoard : Mechanism {
         destination = offPos;
         on = false;
     }
-
-    public void AttachPlayer() {
-        Vector3 relativeRotation = - GameManager.player.transform.rotation.eulerAngles + this.boardModel.transform.rotation.eulerAngles;
-        GameManager.player.transform.parent = boardModel.transform;
-        //GameManager.player.transform.rotation = Quaternion.Euler(GameManager.player.transform.rotation.eulerAngles + relativeRotation);
-        //GameManager.player.transform.localRotation = Quaternion.Euler(GameManager.player.transform.localRotation.eulerAngles + relativeRotation);
-        GameManager.player.transform.localRotation = Quaternion.Euler(GameManager.player.transform.localRotation.eulerAngles + new Vector3(90,90,90));
-    }
 }

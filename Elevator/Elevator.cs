@@ -17,7 +17,13 @@ public class Elevator : MonoBehaviour {
     public string destScene;
     public float cacheTime = 2f;
 
+    [Header("Sound Clips")]
+    public AudioClip loopClip;
+    public AudioClip arriveClip;
+
     public Mechanism door;
+
+    private AudioSource elevatorSound;
 
     private void Start() {
         if(type == ElevatorType.Placeholder) {
@@ -27,6 +33,7 @@ public class Elevator : MonoBehaviour {
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
         door = this.gameObject.GetComponentInChildren<Mechanism>();
+        elevatorSound = gameObject.GetComponent<AudioSource>();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
@@ -74,7 +81,7 @@ public class Elevator : MonoBehaviour {
                 this.gameObject.GetComponent<BoxCollider>().enabled = false;
 
                 door.TurnOff();
-
+                elevatorSound.Play();   //play start clip here
                 Invoke("LoadLoadingScene", 1.5f);
             }
         }
@@ -82,7 +89,18 @@ public class Elevator : MonoBehaviour {
 
     public void LoadLoadingScene() {
         SceneManager.LoadScene("LoadingScene");  //to loading scene
+        elevatorSound.clip = loopClip;
+        elevatorSound.loop = true;
+        elevatorSound.Play();   //play loop sound
         print("Enter leave elevator");
+    }
+
+    public void ArriveLevel() {
+        elevatorSound.Stop();
+        elevatorSound.clip = arriveClip;    //play arrive sound
+        elevatorSound.loop = false;
+        elevatorSound.Play();
+        StartCoroutine(GameManager.DelayToInvoke(() => { door.TurnOn(); }, 2f));
     }
 
     private void OnDestroy() {

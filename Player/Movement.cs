@@ -47,14 +47,18 @@ public class Movement : MonoBehaviour {
     public void CheckParent() {
         RaycastHit hit;
         if(Physics.Raycast(transform.position, new Vector3(0, -1, 0), out hit, 1.1f)) {
-            if(hit.collider.gameObject.CompareTag("FloatingBoard") && GameManager.player.transform.parent==null) {
+            if(hit.collider.gameObject.CompareTag("FloatingBoard") && this.gameObject.transform.parent==null) {
+                //stand on the float board, link
                 this.gameObject.transform.parent = hit.collider.gameObject.transform;
-                //hit.collider.gameObject.transform.parent.gameObject.GetComponent<FloatingBoard>().AttachPlayer();
                 print("player on floating board");
             }else if(!hit.collider.gameObject.CompareTag("FloatingBoard")) {
-                //this.gameObject.transform.parent = null;
+                //not stand on the float board
+                if(gameObject.transform.parent != null && !gameObject.transform.parent.CompareTag("Elevator")) {
+                    //not transporting by elevator
+                    this.gameObject.transform.parent = null;
+                }
             }
-        } else {    //not stand on sth
+        } else {    //in sky
             Transform parent = this.gameObject.transform.parent;
             if(parent == null) {
                 return;
