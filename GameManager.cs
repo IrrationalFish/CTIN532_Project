@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> magicalObjectList;
 
     void Start() {
+        Cursor.visible = false;
         PlaceElevator();
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if(playerObject == null) {
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour {
         } else {
             player = playerObject.GetComponent<Player>();
         }
-        player.transform.parent = null;
+        player.gameObject.transform.parent = null;
         /*player.gameObject.transform.position = reswapnPoint.position;
         player.gameObject.transform.rotation = reswapnPoint.rotation;*/
         magicalObjectList.AddRange(GameObject.FindGameObjectsWithTag("MagicalObject"));
@@ -37,6 +38,9 @@ public class GameManager : MonoBehaviour {
     }
 
     public void RespawnPlayer() {
+        /*player.gameObject.transform.position = reswapnPoint.transform.position;
+        player.gameObject.transform.rotation = reswapnPoint.transform.rotation;
+        return;*/
         if(player != null) {
             Destroy(player.gameObject);
         }

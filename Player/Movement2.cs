@@ -25,23 +25,16 @@ public class Movement2 : MonoBehaviour {
         float hor = Input.GetAxis("Horizontal");
         float ver = Input.GetAxis("Vertical");
 
-        if(cc.isGrounded) {
+        if(OnGround()) {
             moveDir = new Vector3(hor * moveSpeed, 0, ver * moveSpeed );
             moveDir = transform.TransformDirection(moveDir);
             if(Input.GetKeyDown(KeyCode.Space)) {
                 moveDir.y = jumpForce;
             }
         }
-        moveDir.y = moveDir.y - gravity * Time.deltaTime;
-        Vector3 parentVelocity = Vector3.zero;
-        if(gameObject.transform.parent != null) {
-            GameObject parent = gameObject.transform.parent.gameObject;
-            if(parent.GetComponent<Rigidbody>() != null) {
-                parentVelocity = parent.GetComponent<Rigidbody>().velocity;
-                print("Parent V: " + parentVelocity);
-            }
-        }
-        cc.Move(moveDir * Time.deltaTime + parentVelocity);
+        moveDir.y -= gravity * Time.deltaTime;
+        //cc.Move(moveDir * Time.deltaTime);
+        //transform.Translate(moveDir * Time.deltaTime);
     }
 
     bool OnGround() {

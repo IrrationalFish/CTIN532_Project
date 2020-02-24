@@ -2361,7 +2361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arriveElevator: {fileID: 0}
-  playerPrefab: {fileID: 4836681263684319825, guid: 0731cf05edad40d4fa3cea9dc78dacab,
+  playerPrefab: {fileID: 6296280132343709942, guid: 7d43faec96645b044a020a5a4b1799ff,
     type: 3}
   reswapnPoint: {fileID: 1469184791}
   magicalObjectList: []
