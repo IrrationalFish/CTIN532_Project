@@ -1456,7 +1456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   destScene: Scene1
-  cacheTime: 6
+  cacheTime: 4
   loopClip: {fileID: 8300000, guid: 4bd462e95940a5249a168d46c79ddf79, type: 3}
   arriveClip: {fileID: 8300000, guid: 9a59c444ee98b624e8e2a77a683a8f13, type: 3}
   door: {fileID: 8534807883709534905}
@@ -1471,8 +1471,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
-  m_Center: {x: 0, y: 2, z: 0}
+  m_Size: {x: 2, y: 0.5, z: 0.5}
+  m_Center: {x: 0, y: 2, z: 0.5}
 --- !u!82 &4494209970876657243
 AudioSource:
   m_ObjectHideFlags: 0

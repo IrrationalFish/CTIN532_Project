@@ -2,18 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement2 : MonoBehaviour {
+public class Movement3 : MonoBehaviour {
     public float moveSpeed;
     public float gravity;
     public float jumpForce;
 
     private Rigidbody rb;
-    private CharacterController cc;
-    private Vector3 moveDir = Vector3.zero;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
-        cc = GetComponent<CharacterController>();
     }
 
     void Update() {
@@ -24,28 +21,26 @@ public class Movement2 : MonoBehaviour {
     void UpdateMovement() {
         float hor = Input.GetAxis("Horizontal");
         float ver = Input.GetAxis("Vertical");
-
-        if(OnGround()) {
-            moveDir = new Vector3(hor * moveSpeed, 0, ver * moveSpeed );
-            moveDir = transform.TransformDirection(moveDir);
+        float verSpeed = rb.velocity.y;
+        Vector3 movement;
+        if(!OnGround()) {
+            verSpeed = verSpeed - gravity * Time.deltaTime;
+            movement = new Vector3(rb.velocity.x, verSpeed, rb.velocity.z);
+        } else {
             if(Input.GetKeyDown(KeyCode.Space)) {
-                moveDir.y = jumpForce;
+                verSpeed = jumpForce;
             }
+            movement = new Vector3(hor * moveSpeed, verSpeed, ver * moveSpeed);
+            movement = transform.TransformDirection(movement);
         }
-        moveDir.y -= gravity * Time.deltaTime;
-        cc.Move(moveDir * Time.deltaTime);
-        //transform.Translate(moveDir * Time.deltaTime);
+        rb.velocity = movement;
+
     }
 
     bool OnGround() {
         Debug.DrawRay(transform.position, new Vector3(0, -1, 0), Color.red, 1.1f);
-        RaycastHit hit;
-        if(Physics.Raycast(transform.position, new Vector3(0, -1, 0), out hit, 1.1f)) {
-            if(hit.collider.isTrigger) {
-                return false;
-            } else {
-                return true;
-            }
+        if(Physics.Raycast(transform.position, new Vector3(0, -1, 0), 1.1f)) {
+            return true;
         } else {
             return false;
         }
