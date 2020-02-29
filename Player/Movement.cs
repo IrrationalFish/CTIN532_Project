@@ -23,19 +23,7 @@ public class Movement : MonoBehaviour {
         float hor = Input.GetAxis("Horizontal");
         float ver = Input.GetAxis("Vertical");
         float verSpeed = rb.velocity.y;
-        Vector3 movement;
-        if(!OnGround()) {
-            verSpeed = verSpeed - gravity * Time.deltaTime;
-            movement = new Vector3(rb.velocity.x, verSpeed, rb.velocity.z);
-        } else {
-            if(Input.GetKeyDown(KeyCode.Space)) {
-                verSpeed = jumpForce;
-            }
-            movement = new Vector3(hor * moveSpeed, verSpeed, ver * moveSpeed);
-            movement = transform.TransformDirection(movement);
-        }
-        rb.velocity = movement;
-        /*if(!OnGround()) {     //old version
+        if(!OnGround()) {     //old version
             verSpeed = verSpeed - gravity * Time.deltaTime;
         } else {
             if(Input.GetKeyDown(KeyCode.Space)) {
@@ -43,7 +31,7 @@ public class Movement : MonoBehaviour {
             }
         }
         Vector3 movement = new Vector3(hor * moveSpeed, verSpeed, ver * moveSpeed);
-        rb.velocity = transform.TransformDirection(movement);*/
+        rb.velocity = transform.TransformDirection(movement);
 
     }
 
