@@ -22,8 +22,9 @@ public class GameManager : MonoBehaviour {
             player = playerObject.GetComponent<Player>();
         }
         player.gameObject.transform.parent = null;
-        /*player.gameObject.transform.position = reswapnPoint.position;
-        player.gameObject.transform.rotation = reswapnPoint.rotation;*/
+        if(Global.obtainedPhone) {
+            player.ObtainPhone();
+        }
         magicalObjectList.AddRange(GameObject.FindGameObjectsWithTag("MagicalObject"));
     }
 
@@ -45,6 +46,9 @@ public class GameManager : MonoBehaviour {
             Destroy(player.gameObject);
         }
         player = Instantiate(playerPrefab, reswapnPoint.transform.position, reswapnPoint.transform.rotation).GetComponent<Player>();
+        if(Global.obtainedPhone) {
+            player.ObtainPhone();
+        }
     }
 
     public void PlaceElevator() {   //delete placeholder elevator and place arrive elevator

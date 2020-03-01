@@ -6,10 +6,29 @@ public class Player : MonoBehaviour {
 
     public Camera eye;
 
+    public RemCamController rcm;
+    public GameObject phone;
+
     private void Start() {
         DontDestroyOnLoad(this.gameObject);
+        rcm = GetComponent<RemCamController>();
+        if(rcm.enabled == false) {
+            phone.SetActive(false);
+        }
     }
     public bool IsInView(Vector3 worldPos) {
+        if(IsInPersonView(worldPos)) {
+            return true;
+        } else {
+            if(rcm.enabled && rcm.IsInRemoteCameraView(worldPos)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public bool IsInPersonView(Vector3 worldPos) {
         Transform camTransform = eye.transform;
         Vector2 viewPos = eye.WorldToViewportPoint(worldPos);
         Vector3 dir = (worldPos - camTransform.position).normalized;
@@ -30,5 +49,14 @@ public class Player : MonoBehaviour {
             //print("Not in view area");
             return false;
         }
+    }
+
+    public void ObtainPhone() {
+        if(rcm == null) {
+            rcm = GetComponent<RemCamController>();
+        }
+        rcm.enabled = true;
+        phone.SetActive(true);
+        Global.obtainedPhone = true;
     }
 }
