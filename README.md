@@ -19,5 +19,5 @@
 电梯位于每一关开始和结束，进入电梯后下一关会在后台加载，加载完成后切换至下一关。模型来自Unity Asset Store。
 ![门和电梯](https://github.com/NaughtyFishRei/CTIN532_Project/raw/master/Screenshots/Door.PNG)
 ## 浮板
-开关被触发后从"关闭位置"逐渐移动到"开启位置"
+开关被触发后从"关闭位置"逐渐移动到"开启位置".模型来自Unity Asset Store。经过简单修改加上开启时的灯效。
 ![门和电梯](https://github.com/NaughtyFishRei/CTIN532_Project/raw/master/Screenshots/FloatingBoard.PNG)
