@@ -6,6 +6,7 @@
 + 利用视角进行解密，关卡中有一些特殊开关，当其位于玩家视野中时会启动，离开视野后关闭。
 + 开关底座模型来自Unity Asset Store。
 + 开启时的粒子特效基于Unity官方粒子素材包修改。
+
 ![游戏画面1](https://github.com/NaughtyFishRei/CTIN532_Project/raw/master/Screenshots/game1.PNG)
 
 ![游戏画面2](https://github.com/NaughtyFishRei/CTIN532_Project/raw/master/Screenshots/game2.PNG)
