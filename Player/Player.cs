@@ -22,7 +22,12 @@ public class Player : MonoBehaviour {
         } else {
             if(rcm.enabled && rcm.IsInRemoteCameraView(worldPos)) {
                 return true;
-            } else {
+            }
+            else if (mirrorEffect.isInMirrorsView(worldPos))
+            {
+                return true;
+            }
+            else {
                 return false;
             }
         }

@@ -43,7 +43,7 @@ public class RemCamController : MonoBehaviour {
 
 
     void Update() {
-        if(Input.GetKeyDown(KeyCode.Q) && screen.GetComponent<MeshRenderer>().material.name == "CameraTex (Instance)") {
+        if(!isHiden && Input.GetKeyDown(KeyCode.Q) && screen.GetComponent<MeshRenderer>().material.name == "CameraTex (Instance)") {
             if(remoteCamera != null) {
                 Destroy(remoteCamera.gameObject);
             }

@@ -7,13 +7,15 @@ public class mirrorEffect : MonoBehaviour
     public Camera playerCamera;
     public Camera mirrorCamera;
     public Player playerBody;
-    //public RenderTexture mirrorRT;
+    static public ArrayList mirrors = new ArrayList();
+    
     // Start is called before the first frame update
     void Start()
     {
         playerCamera = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().eye;
         playerBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         mirrorCamera = GetComponentInChildren<Camera>();
+        mirrors.Add(this);
     }
 
     // Update is called once per frame
@@ -27,36 +29,7 @@ public class mirrorEffect : MonoBehaviour
 
         mirrorCamera.transform.localEulerAngles = lookat;
 
-        //mirrorCamera.nearClipPlane = Mathf.Abs(mirrorCamera.transform.localPosition.z);
 
-        //Matrix4x4 destinationFlipRotation =
-        //       Matrix4x4.TRS(MathUtil.ZeroV3, Quaternion.AngleAxis(180.0f, Vector3.up), MathUtil.OneV3);
-
-        //Matrix4x4 sourceInvMat = destinationFlipRotation * this.transform.worldToLocalMatrix;
-
-        //// Calculate translation and rotation of MainCamera in Source space
-        //Vector3 cameraPositionInSourceSpace =
-        //    MathUtil.ToV3(sourceInvMat * MathUtil.PosToV4(playerBody.transform.position));
-        //cameraPositionInSourceSpace.x = -cameraPositionInSourceSpace.x;
-        //cameraPositionInSourceSpace.y = cameraPositionInSourceSpace.y + 0.7f;
-
-        //Quaternion playerBodyYaixRotationInMirrorSpace =
-        //    MathUtil.QuaternionFromMatrix(sourceInvMat) * playerBody.transform.rotation;
-        //Quaternion playerCameraXaixRotationInMirrorSpace =
-        //    MathUtil.QuaternionFromMatrix(sourceInvMat) * playerCamera.transform.rotation;
-
-        //Quaternion totalrotationInMirrorSpace = playerBodyYaixRotationInMirrorSpace;// new Quaternion();
-
-        //totalrotationInMirrorSpace.y = -totalrotationInMirrorSpace.y;
-        //totalrotationInMirrorSpace.x = playerCameraXaixRotationInMirrorSpace.x;
-        ////totalrotationInMirrorSpace.z = 0.0f;
-
-        //// Transform Portal Camera to World Space relative to Destination transform,
-        //// matching the Main Camera position/orientation
-        //mirrorCamera.transform.position = this.transform.TransformPoint(cameraPositionInSourceSpace);
-        //mirrorCamera.transform.rotation = this.transform.rotation * totalrotationInMirrorSpace;
-
-        // Calculate clip plane for portal (for culling of objects in-between destination camera and portal)
         Vector4 clipPlaneWorldSpace =
             new Vector4(
                 this.transform.forward.x,
@@ -70,5 +43,47 @@ public class mirrorEffect : MonoBehaviour
         
         mirrorCamera.projectionMatrix = playerCamera.CalculateObliqueMatrix(clipPlaneCameraSpace);
 
+    }
+    public bool IsInMirrorCameraView(Vector3 worldPos)
+    {
+        //if (remoteCamera == null || phoneMode == PhoneMode.Seeking)
+        //{
+        //    return false;
+        //}
+        Transform camTransform = mirrorCamera.transform;
+        Vector2 viewPos = mirrorCamera.WorldToViewportPoint(worldPos);
+        Vector3 dir = (worldPos - camTransform.position).normalized;
+        float dot = Vector3.Dot(camTransform.forward, dir);//判断物体是否在相机前面
+
+        if (dot > 0 && viewPos.x >= 0 && viewPos.x <= 1 && viewPos.y >= 0 && viewPos.y <= 1)
+        {
+            int layermask = 5 << 9;
+            //int other = 0 << 10;
+            //layermask = ~layermask - ~other;
+            Debug.DrawLine(mirrorCamera.transform.position, worldPos);
+            if (Physics.Linecast(mirrorCamera.transform.position, worldPos, layermask))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public static bool isInMirrorsView(Vector3 worldPos)
+    {
+        
+        foreach(mirrorEffect m in mirrorEffect.mirrors)
+        {
+            
+            if (m.IsInMirrorCameraView(worldPos))
+                return true;
+        }
+        return false;
     }
 }
