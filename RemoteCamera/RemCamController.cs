@@ -8,7 +8,7 @@ public class RemCamController : MonoBehaviour {
 
     public enum PhoneMode {
         Seeking,
-        Watching
+        Watching,
     }
 
     public PhoneMode phoneMode;
@@ -25,10 +25,19 @@ public class RemCamController : MonoBehaviour {
     public Material camTex;
     public Material remCamTex;
 
+    [Header("For hide and show")]
+    public bool isHiden = false;
+    public GameObject phoneModel;
+    public float maxSpeed;
+    public Transform showPos;
+    public Transform hidePos;
+    private Transform dest;
+
     private GameManager gm;
 
     void Start() {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        dest = showPos;
         SetToSeeking();
     }
 
@@ -44,6 +53,17 @@ public class RemCamController : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.E)) {
             SwitchMode();
         }
+        if(Input.GetKeyDown(KeyCode.Tab)) {
+            print("tab");
+            if(isHiden) {
+                Show();
+            } else {
+                Hide();
+            }
+        }
+        if(dest!= null && !phoneModel.transform.localPosition.Equals(dest.localPosition)) {
+            phoneModel.transform.localPosition = Vector3.MoveTowards(phoneModel.transform.localPosition, dest.localPosition, maxSpeed);
+        }
         if(phoneMode == PhoneMode.Watching && remoteCamera == null) {
             if(!signalText.activeSelf) {
                 signalText.SetActive(true);
@@ -57,7 +77,7 @@ public class RemCamController : MonoBehaviour {
     }
 
     public bool IsInRemoteCameraView(Vector3 worldPos) {
-        if(remoteCamera == null || phoneMode == PhoneMode.Seeking) {
+        if(remoteCamera == null || phoneMode == PhoneMode.Seeking || isHiden) {
             return false;
         }
         Transform camTransform = remoteCamera.transform;
@@ -100,4 +120,15 @@ public class RemCamController : MonoBehaviour {
         screenText.text = "Watching...";
         buttonText.text = "Press E to switch mode";
     }
+
+    private void Hide() {
+        dest = hidePos;
+        isHiden = true;
+    }
+
+    private void Show() {
+        dest = showPos;
+        isHiden = false;
+    }
+
 }
