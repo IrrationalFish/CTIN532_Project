@@ -12,6 +12,8 @@ public class MagicalObject : MonoBehaviour {
     public ParticleSystem pointerParticle;
     public particleAttractorMove pointerScript;
 
+    private ParticleSystem.EmissionModule pointerChildEm;
+
     public GameObject core;
     public Vector3 rotateSpeed;
 
@@ -20,6 +22,9 @@ public class MagicalObject : MonoBehaviour {
         if(linkedMechanism.Count != 0) {
             pointerScript.target = linkedMechanism[0].laserTarget;
         }
+        pointerChildEm = pointerParticle.gameObject.GetComponentsInChildren<ParticleSystem>()[1].emission;
+        pointerChildEm.rateOverTime = 3;
+        pointerParticle.Play();
     }
 
     private void Update() {
@@ -34,7 +39,8 @@ public class MagicalObject : MonoBehaviour {
             foreach(Mechanism m in linkedMechanism) {
                 m.TurnOn();
             }
-            pointerParticle.Play();
+            pointerChildEm.rateOverTime = 20;
+            //pointerParticle.Play();
         }
     }
 
@@ -46,7 +52,8 @@ public class MagicalObject : MonoBehaviour {
             foreach(Mechanism m in linkedMechanism) {
                 m.TurnOff();
             }
-            pointerParticle.Stop();
+            pointerChildEm.rateOverTime = 3;
+            //pointerParticle.Stop();
         }
     }
 
