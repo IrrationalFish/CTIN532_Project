@@ -25,6 +25,7 @@ public class Player : MonoBehaviour {
             }
             else if (mirrorEffect.isInMirrorsView(worldPos))
             {
+                print("is in mirror view");
                 return true;
             }
             else {

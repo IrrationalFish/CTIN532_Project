@@ -16,11 +16,22 @@ public class mirrorEffect : MonoBehaviour
         playerBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         mirrorCamera = GetComponentInChildren<Camera>();
         mirrors.Add(this);
+        playerBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        //playerBody = GameManager.player;
+        //playerCamera = GameManager.player.eye;
+
+        //mirrorCamera = GetComponentInChildren<Camera>();
+        //mirrors.Add(this);
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
+        if (playerCamera == null||playerBody==null)
+        {
+            playerCamera = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().eye;
+            playerBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        }
         Vector3 mirror = new Vector3(1, 1, -1);
 
         mirrorCamera.transform.localPosition = Vector3.Scale(transform.InverseTransformPoint(playerCamera.transform.position), mirror);
@@ -80,7 +91,8 @@ public class mirrorEffect : MonoBehaviour
         
         foreach(mirrorEffect m in mirrorEffect.mirrors)
         {
-            
+            if (m == null)
+                mirrors.Remove(m);
             if (m.IsInMirrorCameraView(worldPos))
                 return true;
         }

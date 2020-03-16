@@ -11002,7 +11002,7 @@ PrefabInstance:
     - target: {fileID: 6075050573681524212, guid: 1b26fb62da02ec24980887fbd0d7bb7d,
         type: 3}
       propertyPath: destScene
-      value: Scene3
+      value: YuxiaoTest
       objectReference: {fileID: 0}
     - target: {fileID: 6075050573681524212, guid: 1b26fb62da02ec24980887fbd0d7bb7d,
         type: 3}
