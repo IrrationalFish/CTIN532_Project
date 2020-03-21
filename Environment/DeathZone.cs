@@ -13,6 +13,7 @@ public class DeathZone : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.CompareTag("Player")) {
             print("Enter water");
+            DataCollector.RecordOneDeath();
             if(isPlayer2) {
                 GameManager.player.gameObject.GetComponent<Movement2>().enabled = false;
                 GameManager.player.gameObject.GetComponent<FirstPersonCam>().enabled = false;
