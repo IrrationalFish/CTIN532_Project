@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class DataCollector : MonoBehaviour {
 
+    public bool recordInEditor;
+
     public static string currentLevel;
 
     public static float totalPlayTime;
@@ -22,6 +24,14 @@ public class DataCollector : MonoBehaviour {
     string path;
 
     void Start() {
+#if UNITY_EDITOR
+        if (!recordInEditor) {
+            this.enabled = false;
+            return;
+        }
+#else
+        
+#endif
         path = Application.dataPath;
         if(!System.IO.Directory.Exists(path + "/SaveData")){
             System.IO.Directory.CreateDirectory(path + "/SaveData");
@@ -60,6 +70,10 @@ public class DataCollector : MonoBehaviour {
     }
 
     private void OnApplicationQuit() {
+        print("Quit the game");
+        if (this.enabled == false) {
+            return;
+        }
         String data =   "----------------------------------------------------\n" +
                         "Total play time: " + FloatTimeToString(totalPlayTime) + "\n" +
                         "Total death: " + totalDeath + "\n" +

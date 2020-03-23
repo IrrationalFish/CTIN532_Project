@@ -53,6 +53,7 @@ public class PlayerUIManager : MonoBehaviour {
         if(g != null) {
             g.GetComponent<GameManager>().RespawnPlayer();
         }
+        Cursor.visible = false;
     }
 
     public void ExitGame() {
