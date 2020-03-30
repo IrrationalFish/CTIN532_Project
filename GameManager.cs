@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
     public List<GameObject> magicalObjectList;
 
     void Start() {
-        Cursor.visible = false;
+        //Cursor.visible = false;
         PlaceElevator();
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if(playerObject == null) {

@@ -28,6 +28,7 @@ public class Movement : MonoBehaviour {
         } else {
             if(Input.GetKeyDown(KeyCode.Space)) {
                 verSpeed = jumpForce;
+                DataCollector.RecordOneJump();
             }
         }
         Vector3 movement = new Vector3(hor * moveSpeed, verSpeed, ver * moveSpeed);

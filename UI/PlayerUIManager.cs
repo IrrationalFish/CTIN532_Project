@@ -9,22 +9,25 @@ public class PlayerUIManager : MonoBehaviour {
     public GameObject MenuObject;
 
     public Text tutorialText;
+    public Animator byStanderAC;
+    public Animator tutorialAC;
 
     void Start() {
-        if(MenuOn) {
+        if(MenuObject.activeSelf == true) {
+            MenuOn = true;
             SwitchMenuOnOff();
         }
     }
 
     void Update() {
         if(Input.GetKeyDown(KeyCode.Escape)) {
-            SwitchMenuOnOff();
+            this.GetComponent<PlayerUIManager>().SwitchMenuOnOff();
         }
     }
 
     public void SetTutorialText(string text, float time) {
         tutorialText.text = text.Replace("\\n", "\n");
-        StartCoroutine(GameManager.DelayToInvoke(() => {tutorialText.text = "";}, time));
+        StartCoroutine(GameManager.DelayToInvoke(() => { tutorialText.text = ""; }, time));
     }
 
     public void SwitchMenuOnOff() {
@@ -33,7 +36,9 @@ public class PlayerUIManager : MonoBehaviour {
             GetComponent<Movement>().enabled = true;
             GetComponent<FirstPersonCam>().enabled = true;
             GetComponent<Player>().enabled = true;
-            GetComponent<RemCamController>().enabled = true;
+            if(Global.obtainedPhone) {
+                GetComponent<RemCamController>().enabled = true;
+            }
             Cursor.visible = false;
             MenuOn = false;
         } else {
@@ -53,14 +58,38 @@ public class PlayerUIManager : MonoBehaviour {
         if(g != null) {
             g.GetComponent<GameManager>().RespawnPlayer();
         }
+        Cursor.visible = false;
     }
 
     public void ExitGame() {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
             Application.Quit();
-        #endif
+#endif
     }
 
+    public void SwitchByStanderMode() {
+        if(byStanderAC.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0) {
+            return;     //current anim unfinished, skip
+        }
+        if(this.GetComponent<Player>().byStander == true) {
+            byStanderAC.SetBool("ByStanderOpen", false);
+            this.GetComponent<Player>().byStander = false;
+        } else {
+            byStanderAC.SetBool("ByStanderOpen", true);
+            this.GetComponent<Player>().byStander = true;
+        }
+    }
+
+    public void SwitchTutorialMenu() {
+        if(tutorialAC.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0) {
+            return;     //current anim unfinished, skip
+        }
+        if(tutorialAC.GetBool("TutorialMenuOn") == true) {
+            tutorialAC.SetBool("TutorialMenuOn", false);
+        } else {
+            tutorialAC.SetBool("TutorialMenuOn", true);
+        }
+    }
 }

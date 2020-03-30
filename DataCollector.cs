@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class DataCollector : MonoBehaviour {
 
+    public bool recordInEditor;
+
     public static string currentLevel;
 
     public static float totalPlayTime;
@@ -16,12 +18,25 @@ public class DataCollector : MonoBehaviour {
     public static int totalDeath;
     public static int currentDeath;
 
+    public static int currentJump;
+    public static int totalJump;
+
+    public static int currentByStander;
+    public static int totalByStander;
 
     int fileIndex = 1;
     string fileName;
     string path;
 
     void Start() {
+#if UNITY_EDITOR
+        if (!recordInEditor) {
+            this.enabled = false;
+            return;
+        }
+#else
+        
+#endif
         path = Application.dataPath;
         if(!System.IO.Directory.Exists(path + "/SaveData")){
             System.IO.Directory.CreateDirectory(path + "/SaveData");
@@ -47,6 +62,8 @@ public class DataCollector : MonoBehaviour {
                             "Level name: " + currentLevel + "\n" +
                             "Play time: " + FloatTimeToString(currentPlayTime) + "\n" +
                             "Death: " + currentDeath + "\n" +
+                            "Jump: " + currentJump + "\n" +
+                            "Bystander: " + currentByStander + "\n" +
                             "----------------------------------------------------";
             WriteToFile(data);
         } else {
@@ -60,9 +77,15 @@ public class DataCollector : MonoBehaviour {
     }
 
     private void OnApplicationQuit() {
+        print("Quit the game");
+        if (this.enabled == false) {
+            return;
+        }
         String data =   "----------------------------------------------------\n" +
                         "Total play time: " + FloatTimeToString(totalPlayTime) + "\n" +
                         "Total death: " + totalDeath + "\n" +
+                        "Total jump: " + totalJump + "\n" +
+                        "Total bystander: " + totalByStander + "\n" +
                         "----------------------------------------------------";
         WriteToFile(data);
     }
@@ -71,11 +94,23 @@ public class DataCollector : MonoBehaviour {
         currentLevel = SceneManager.GetActiveScene().name;
         currentPlayTime = 0f;
         currentDeath = 0;
+        currentJump = 0;
+        currentByStander = 0;
     }
 
     public static void RecordOneDeath() {
         totalDeath++;
         currentDeath++;
+    }
+
+    public static void RecordOneJump() {
+        currentJump++;
+        totalJump++;
+    }
+
+    public static void RecordOneByStander() {
+        currentByStander++;
+        totalByStander++;
     }
 
     void WriteToFile(String text) {

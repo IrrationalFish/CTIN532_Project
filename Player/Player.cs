@@ -9,6 +9,8 @@ public class Player : MonoBehaviour {
     public RemCamController rcm;
     public GameObject phone;
 
+    public bool byStander;
+
     private void Start() {
         DontDestroyOnLoad(this.gameObject);
         rcm = GetComponent<RemCamController>();
@@ -16,7 +18,17 @@ public class Player : MonoBehaviour {
             phone.SetActive(false);
         }
     }
+
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.F)){
+            this.GetComponent<PlayerUIManager>().SwitchByStanderMode();
+            DataCollector.RecordOneByStander();
+        }
+    }
     public bool IsInView(Vector3 worldPos) {
+        if(byStander) {
+            return false;
+        }
         if(IsInPersonView(worldPos)) {
             return true;
         } else {
