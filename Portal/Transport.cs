@@ -6,19 +6,25 @@ public class Transport : MonoBehaviour
 {
     private Transform In;
     public Transform Out;
-    private GameObject player;
+    private GameObject player = null;
     private Vector3 PreviousPosition;
     // Start is called before the first frame update
     void Start()
     {
         In = this.transform;
-        player = GameObject.FindGameObjectWithTag("Player");
-        PreviousPosition = player.transform.position;
+        //player = GameObject.FindGameObjectWithTag("Player");
+        //PreviousPosition = player.transform.position;
     }
 
+    
+    
     // Update is called once per frame
     void Update()
     {
+        if(player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
         Matrix4x4 destinationFlipRotation = Matrix4x4.TRS(
             MathUtil.ZeroV3, Quaternion.AngleAxis(180.0f, Vector3.up), MathUtil.OneV3);
         Matrix4x4 InInvMat = destinationFlipRotation * In.worldToLocalMatrix;
@@ -33,10 +39,10 @@ public class Transport : MonoBehaviour
         float previousFrontDistance = Vector3.Dot(In.transform.forward, vecToPreviousPosition);
         PreviousPosition = player.transform.position;
         // Have we just crossed the portal threshold
-        if (frontDistance < 0.0f
-            && previousFrontDistance >= 0.0f
-            && Mathf.Abs(sideDistance) < /*approx door_width*/ 1.0f
-            && Mathf.Abs(heightDistance) < /*approx door_height*/ 1.2f)
+        if (frontDistance <= 0.0f
+            && previousFrontDistance > 0.0f
+            && Mathf.Abs(sideDistance) < /*approx door_width*/ 0.5f
+            && Mathf.Abs(heightDistance) < /*approx door_height*/ 1.5f)
         {
             // If so, transform the CamController to Out transform space
 

@@ -12,10 +12,11 @@ public class mirrorEffect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerCamera = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().eye;
-        playerBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        //playerCamera = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().eye;
+        //playerBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         mirrorCamera = GetComponentInChildren<Camera>();
         mirrors.Add(this);
+        print(mirrors.Count);
         playerBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         //playerBody = GameManager.player;
         //playerCamera = GameManager.player.eye;
@@ -31,6 +32,7 @@ public class mirrorEffect : MonoBehaviour
         {
             playerCamera = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().eye;
             playerBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            print("get one");
         }
         Vector3 mirror = new Vector3(1, 1, -1);
 
@@ -74,15 +76,18 @@ public class mirrorEffect : MonoBehaviour
             Debug.DrawLine(mirrorCamera.transform.position, worldPos);
             if (Physics.Linecast(mirrorCamera.transform.position, worldPos, layermask))
             {
+                print("false");
                 return false;
             }
             else
             {
+                print("true");
                 return true;
             }
         }
         else
         {
+            print("false outside");
             return false;
         }
     }
@@ -91,6 +96,7 @@ public class mirrorEffect : MonoBehaviour
         
         foreach(mirrorEffect m in mirrorEffect.mirrors)
         {
+            print("isInMirrorsView");
             if (m == null)
                 mirrors.Remove(m);
             if (m.IsInMirrorCameraView(worldPos))

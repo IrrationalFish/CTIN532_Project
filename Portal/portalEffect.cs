@@ -10,15 +10,17 @@ public class portalEffect : MonoBehaviour
     private Camera playerCamera;
     public Player playerBody;
     private RenderTexture renderTexture;
+    public RenderTexture baseTexture;
     private Material material;
     public GameObject portal;
     public GameObject selfQuad;
     //public RenderTexture test;
     void Start()
     {
-        playerCamera = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().eye;
-        playerBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        renderTexture = new RenderTexture(1024, 1024, 16, RenderTextureFormat.ARGB32);
+        //playerCamera = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().eye;
+        //playerBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        //renderTexture = new RenderTexture(720, 720, 16, RenderTextureFormat.ARGB32);
+        renderTexture = new RenderTexture(baseTexture);
         renderTexture.Create();
         portalCamera.targetTexture = renderTexture;
         material = new Material(Shader.Find("Custom/PortalShader"));
@@ -30,10 +32,22 @@ public class portalEffect : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (playerCamera == null || playerBody == null)
+        if (playerBody == null||playerCamera == null )
         {
             playerCamera = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().eye;
             playerBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        }
+       if(Vector3.Distance(playerBody.transform.position, this.transform.position) < 7)
+        {
+            portalCamera.cullingMask = 1;
+        }else if (Vector3.Dot(playerBody.transform.forward, this.transform.forward) > 0)
+        {
+            portalCamera.cullingMask = 0;
+        }
+        else
+        {
+            portalCamera.cullingMask = 1;
+
         }
         Vector3 portalChange = new Vector3(-1, 1, -1);
 
@@ -46,7 +60,7 @@ public class portalEffect : MonoBehaviour
         Quaternion cameraRotationInSourceSpace =
                 MathUtil.QuaternionFromMatrix(sourceInvMat) * playerBody.transform.rotation;
 
-        Quaternion Protation = portal.transform.rotation * cameraRotationInSourceSpace;
+        //Quaternion Protation = portal.transform.rotation * cameraRotationInSourceSpace;
 
 
         //Vector3 lookat = new Vector3(playerCamera.transform.localEulerAngles.x, portal.transform.eulerAngles.y - Mathf.Abs(this.transform.eulerAngles.y - playerBody.transform.eulerAngles.y), 0);
