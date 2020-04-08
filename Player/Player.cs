@@ -53,7 +53,7 @@ public class Player : MonoBehaviour {
         float dot = Vector3.Dot(camTransform.forward, dir);//判断物体是否在相机前面
 
         if(dot > 0 && viewPos.x >= 0 && viewPos.x <= 1 && viewPos.y >= 0 && viewPos.y <= 1) {
-            int layermask = 1 << 8;
+            int layermask = 1 << 8 | 1 << 5;
             layermask = ~layermask;
             Debug.DrawLine(eye.transform.position, worldPos);
             if(Physics.Linecast(eye.transform.position, worldPos, layermask)) {

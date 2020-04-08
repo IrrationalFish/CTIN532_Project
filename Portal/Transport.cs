@@ -56,7 +56,7 @@ public class Transport : MonoBehaviour
                 MathUtil.QuaternionFromMatrix(InInvMat) * player.transform.rotation;
 
             player.transform.rotation = Out.rotation * cameraRotationInSourceSpace;
-            print("teleport");
+            print("teleport from: "+this.name);
         }
     }
 }

@@ -1140,6 +1140,7 @@ MonoBehaviour:
   portalCamera: {fileID: 0}
   playerBody: {fileID: 0}
   baseTexture: {fileID: 8400000, guid: a629c202409533441a9840546fca3728, type: 2}
+  baseMaterial: {fileID: 2100000, guid: 5a1072829be614f47925daacc668200e, type: 2}
   portal: {fileID: 0}
   selfQuad: {fileID: 0}
 --- !u!114 &2200124949876799515

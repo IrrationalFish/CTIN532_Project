@@ -11,6 +11,7 @@ public class portalEffect : MonoBehaviour
     public Player playerBody;
     private RenderTexture renderTexture;
     public RenderTexture baseTexture;
+    public Material baseMaterial;
     private Material material;
     public GameObject portal;
     public GameObject selfQuad;
@@ -23,7 +24,8 @@ public class portalEffect : MonoBehaviour
         renderTexture = new RenderTexture(baseTexture);
         renderTexture.Create();
         portalCamera.targetTexture = renderTexture;
-        material = new Material(Shader.Find("Custom/PortalShader"));
+        //material = new Material(Shader.Find("Custom/PortalShader"));
+        material = new Material(baseMaterial);
         //material.SetTexture(Shader.PropertyToID("Custom/PortalShader"), test);
         material.mainTexture = renderTexture;
         selfQuad.GetComponent<MeshRenderer>().material = material;

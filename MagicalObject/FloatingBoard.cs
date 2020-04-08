@@ -24,7 +24,7 @@ public class FloatingBoard : Mechanism {
         }
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         if(destination != null && !boardModel.transform.position.Equals(destination.position)) {
             boardModel.transform.position = Vector3.MoveTowards(boardModel.transform.position, destination.position, maxSpeed);
         }
