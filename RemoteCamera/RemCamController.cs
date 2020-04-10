@@ -19,6 +19,7 @@ public class RemCamController : MonoBehaviour {
 
     public GameObject screen;
     public TextMeshProUGUI screenText;
+    public float modeTextSpeed;
     public GameObject signalText;
     public TextMeshProUGUI buttonText;
 
@@ -33,7 +34,14 @@ public class RemCamController : MonoBehaviour {
     public Transform hidePos;
     private Transform dest;
 
+    [Header("For new control")]
+    public bool applyNewControl;
+    public float requiredHoldTime;
+    public float currentHoldTime;
+    public Slider droneSlider;
+
     private GameManager gm;
+    private int seekingColorDir = -1;
 
     void Start() {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -43,35 +51,67 @@ public class RemCamController : MonoBehaviour {
 
 
     void Update() {
-        if(!isHiden && Input.GetKeyDown(KeyCode.Q) && screen.GetComponent<MeshRenderer>().material.name == "CameraTex (Instance)") {
-            if(remoteCamera != null) {
-                Destroy(remoteCamera.gameObject);
-            }
-            remoteCamera = (Instantiate(remCamPrefab, remCamRespawnTran.position, remCamRespawnTran.rotation) as GameObject).GetComponent<Camera>();
-            SwitchMode();
+        if(dest != null && !phoneModel.transform.localPosition.Equals(dest.localPosition)) {
+            phoneModel.transform.localPosition = Vector3.MoveTowards(phoneModel.transform.localPosition, dest.localPosition, maxSpeed);
         }
-        if(Input.GetKeyDown(KeyCode.E)) {
-            SwitchMode();
+        if(phoneMode == PhoneMode.Watching) {
+            if(remoteCamera == null) {
+                if(!signalText.activeSelf) {
+                    signalText.SetActive(true);
+                }
+            } else {
+                if(signalText.activeSelf) {
+                    signalText.SetActive(false);
+                }
+            }
+        } else {    //in seeking mode
+            if(signalText.activeSelf) {
+                signalText.SetActive(false);
+            }
+            if(screenText.color.a <= 0) {
+                seekingColorDir = 1;
+            } else if(screenText.color.a >= 1) {
+                seekingColorDir = -1;
+            }
+            screenText.color = new Color(1, 1, 1, screenText.color.a + (seekingColorDir * modeTextSpeed * Time.deltaTime));
         }
         if(Input.GetKeyDown(KeyCode.Tab)) {
-            print("tab");
             if(isHiden) {
                 Show();
             } else {
                 Hide();
             }
         }
-        if(dest!= null && !phoneModel.transform.localPosition.Equals(dest.localPosition)) {
-            phoneModel.transform.localPosition = Vector3.MoveTowards(phoneModel.transform.localPosition, dest.localPosition, maxSpeed);
-        }
-        if(phoneMode == PhoneMode.Watching && remoteCamera == null) {
-            if(!signalText.activeSelf) {
-                signalText.SetActive(true);
+        if(!applyNewControl) {
+            if(!isHiden && Input.GetKeyDown(KeyCode.Q) && screen.GetComponent<MeshRenderer>().material.name == "CameraTex (Instance)") {
+                if(remoteCamera != null) {
+                    Destroy(remoteCamera.gameObject);
+                }
+                remoteCamera = (Instantiate(remCamPrefab, remCamRespawnTran.position, remCamRespawnTran.rotation) as GameObject).GetComponent<Camera>();
+                SwitchMode();
             }
-        }
-        if(phoneMode == PhoneMode.Seeking) {
-            if(signalText.activeSelf) {
-                signalText.SetActive(false);
+            if(Input.GetKeyDown(KeyCode.E)) {
+                SwitchMode();
+            }
+        } else {
+            droneSlider.value = currentHoldTime / requiredHoldTime;
+            if(!isHiden) {
+                if(Input.GetKey(KeyCode.E)) {
+                    currentHoldTime += Time.deltaTime;
+                }
+                if(Input.GetKeyUp(KeyCode.E)) {
+                    if(currentHoldTime >= requiredHoldTime) {
+                        //place drone
+                        if(remoteCamera != null) {
+                            Destroy(remoteCamera.gameObject);
+                        }
+                        remoteCamera = (Instantiate(remCamPrefab, remCamRespawnTran.position, remCamRespawnTran.rotation) as GameObject).GetComponent<Camera>();
+                        SetToWatching();
+                    } else {
+                        SwitchMode();
+                    }
+                    currentHoldTime = 0;
+                }
             }
         }
     }
@@ -112,6 +152,8 @@ public class RemCamController : MonoBehaviour {
         phoneMode = PhoneMode.Seeking;
         screenText.text = "Seeking...";
         buttonText.text = "Press Q to set monitor";
+        screenText.color = new Color(1, 1, 1, 1);
+        seekingColorDir = -1;
     }
 
     public void SetToWatching() {
@@ -119,14 +161,18 @@ public class RemCamController : MonoBehaviour {
         phoneMode = PhoneMode.Watching;
         screenText.text = "Watching...";
         buttonText.text = "Press E to switch mode";
+        screenText.color = new Color(1, 1, 1, 1);
+        seekingColorDir = 0;
     }
 
     private void Hide() {
+        currentHoldTime = 0;
         dest = hidePos;
         isHiden = true;
     }
 
     private void Show() {
+        currentHoldTime = 0;
         dest = showPos;
         isHiden = false;
     }

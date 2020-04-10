@@ -43,8 +43,9 @@ public class GameManager : MonoBehaviour {
         player.gameObject.transform.rotation = reswapnPoint.transform.rotation;
         return;*/
         if(player != null) {
-            if(Global.obtainedPhone&& player.GetComponent<RemCamController>().remoteCamera!=null)
+            if(player.GetComponent<RemCamController>().remoteCamera != null) {
                 Destroy(player.GetComponent<RemCamController>().remoteCamera.gameObject);
+            }
             Destroy(player.gameObject);
         }
         player = Instantiate(playerPrefab, reswapnPoint.transform.position, reswapnPoint.transform.rotation).GetComponent<Player>();
