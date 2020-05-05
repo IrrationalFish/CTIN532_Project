@@ -230,7 +230,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &64404836
 RectTransform:
   m_ObjectHideFlags: 0
@@ -539,7 +539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec7d218f8e07afd469c466cc83a6cb8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  extraSceneName: MirrorScene
+  extraSceneName: Start
 --- !u!4 &549390169
 Transform:
   m_ObjectHideFlags: 0
@@ -770,7 +770,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -950}
+  m_AnchoredPosition: {x: 0, y: -800}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &874817505

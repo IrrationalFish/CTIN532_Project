@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour {
         foreach(GameObject obj in magicalObjectList) {
             if(player.IsInView(obj.transform.position)) {
                 obj.GetComponent<MagicalObject>().InsideView();
+                print(obj.name);
             } else {
                 obj.GetComponent<MagicalObject>().OutsideView();
             }

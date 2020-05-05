@@ -64,6 +64,9 @@ public class mirrorEffect : MonoBehaviour
         //    return false;
         //}
         Transform camTransform = mirrorCamera.transform;
+        //print(Vector3.Dot(mirrorCamera.transform.position-this.transform.position, this.transform.forward));
+        if (Vector3.Dot(mirrorCamera.transform.position - this.transform.position, this.transform.forward) > 0||Vector3.Dot(mirrorCamera.transform.position - this.transform.position, this.transform.up)<0)
+            return false;
         Vector2 viewPos = mirrorCamera.WorldToViewportPoint(worldPos);
         Vector3 dir = (worldPos - camTransform.position).normalized;
         float dot = Vector3.Dot(camTransform.forward, dir);//判断物体是否在相机前面
@@ -100,7 +103,11 @@ public class mirrorEffect : MonoBehaviour
             if (m == null)
                 mirrors.Remove(m);
             if (m.IsInMirrorCameraView(worldPos))
+            {
+                print(worldPos);
                 return true;
+            }
+                
         }
         return false;
     }

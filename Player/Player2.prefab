@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 4836681263684319830}
   - component: {fileID: 4836681263684319831}
   - component: {fileID: 4836681263684319834}
+  - component: {fileID: 4481360962742031185}
   - component: {fileID: 1716364520514716413}
   - component: {fileID: 8257566331504430926}
   m_Layer: 8
@@ -164,6 +165,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eye: {fileID: 4836681264171128859}
+  rcm: {fileID: 0}
+  phone: {fileID: 0}
+  byStander: 0
 --- !u!114 &4836681263684319834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +183,38 @@ MonoBehaviour:
   moveSpeed: 3.5
   gravity: 20
   jumpForce: 8
+--- !u!114 &4481360962742031185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4836681263684319825}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b328b128d9bfe14478f241282099f534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phoneMode: 0
+  remCamPrefab: {fileID: 0}
+  remCamRespawnTran: {fileID: 0}
+  remoteCamera: {fileID: 0}
+  screen: {fileID: 0}
+  screenText: {fileID: 0}
+  modeTextSpeed: 0
+  signalText: {fileID: 0}
+  buttonText: {fileID: 0}
+  camTex: {fileID: 0}
+  remCamTex: {fileID: 0}
+  isHiden: 0
+  phoneModel: {fileID: 0}
+  maxSpeed: 0
+  showPos: {fileID: 0}
+  hidePos: {fileID: 0}
+  applyNewControl: 0
+  requiredHoldTime: 0
+  currentHoldTime: 0
+  droneSlider: {fileID: 0}
 --- !u!54 &1716364520514716413
 Rigidbody:
   m_ObjectHideFlags: 0

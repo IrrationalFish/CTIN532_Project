@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Scene_End : MonoBehaviour {
-    // Start is called before the first frame update
+
+    public string extraSceneName;
+
     void Start() {
         Cursor.visible = true;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -13,6 +16,12 @@ public class Scene_End : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
+    }
+
+    public void LoadExtraLevel() {
+        SceneManager.LoadScene(extraSceneName);
+        Cursor.visible = false;
+        Global.obtainedPhone = false;
     }
 
     public void ExitGame() {

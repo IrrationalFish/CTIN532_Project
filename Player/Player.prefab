@@ -2617,8 +2617,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eye: {fileID: 6296280132797047484}
-  horSensitivity: 3
-  verSensitivity: 3
+  horSensitivity: 2
+  verSensitivity: 2
   maxVert: 45
   minVert: -45
 --- !u!114 &6296280132343709936
@@ -3166,7 +3166,7 @@ MonoBehaviour:
 
     Press E to switch between Seeking and Watching
 
-    In Seeking, press Q to set remote camera
+    Hold E to set remote camera
 
     Press Tab to hide/show phonet'
 --- !u!95 &9160738604651217989
